@@ -3,643 +3,238 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#09050f" />
+  <meta name="theme-color" content="#07040c" />
   <meta
     name="description"
     content="Ryan Beasley — forex, prop-firm and local development from Exeter, UK."
   />
   <title>Ryan Beasley — beasley.dev</title>
-  <style>
-    :root {
-      --background: #07040c;
-      --surface: rgba(20, 11, 31, 0.68);
-      --text: #f8f5ff;
-      --muted: #aaa0b8;
-      --purple: #9d5cff;
-      --purple-light: #c99cff;
-      --border: rgba(202, 159, 255, 0.18);
-      --glow: rgba(137, 66, 255, 0.35);
-      --max-width: 1180px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 18% 8%, rgba(104, 38, 177, 0.25), transparent 34%),
-        radial-gradient(circle at 88% 75%, rgba(70, 17, 113, 0.24), transparent 32%),
-        var(--background);
-      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.32;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: linear-gradient(to bottom, black, transparent 78%);
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .page-shell {
-      position: relative;
-      min-height: 100vh;
-      isolation: isolate;
-    }
-
-    .orb {
-      position: fixed;
-      z-index: -1;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.2;
-      pointer-events: none;
-      animation: drift 12s ease-in-out infinite alternate;
-    }
-
-    .orb-one { top: -180px; right: -80px; background: #893cff; }
-    .orb-two { left: -200px; bottom: -160px; background: #4a116f; animation-delay: -4s; }
-
-    .nav {
-      width: min(calc(100% - 40px), var(--max-width));
-      margin: 0 auto;
-      height: 86px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: linear-gradient(145deg, rgba(198,144,255,.18), rgba(91,35,145,.12));
-    }
-
-    .brand-mark::before {
-      content: "B";
-      color: var(--purple-light);
-      font-size: 13px;
-    }
-
-    .nav-link {
-      color: var(--muted);
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 180ms ease;
-    }
-
-    .nav-link:hover { color: var(--text); }
-
-    main {
-      width: min(calc(100% - 40px), var(--max-width));
-      margin: 0 auto;
-    }
-
-    .hero {
-      min-height: calc(100vh - 86px);
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
-      align-items: center;
-      gap: 64px;
-      padding: 60px 0 100px;
-    }
-
-    .eyebrow {
-      margin: 0 0 24px;
-      color: var(--purple-light);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 780px;
-      margin: 0;
-      font-size: clamp(64px, 10vw, 138px);
-      line-height: 0.86;
-      letter-spacing: -0.065em;
-      font-weight: 650;
-    }
-
-    h1 span {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(243, 226, 255, 0.5);
-    }
-
-    .intro {
-      max-width: 680px;
-      margin: 34px 0 0;
-      color: var(--muted);
-      font-size: clamp(17px, 2vw, 21px);
-      line-height: 1.65;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 38px;
-    }
-
-    .button {
-      min-width: 170px;
-      padding: 15px 24px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
-    }
-
-    .button:hover { transform: translateY(-2px); }
-    .button-primary { background: var(--text); color: #13091d; }
-
-    .button-secondary {
-      border-color: var(--border);
-      background: rgba(255,255,255,.025);
-      color: var(--text);
-    }
-
-    .button-secondary:hover {
-      border-color: rgba(202,159,255,.4);
-      background: rgba(157,92,255,.08);
-    }
-
-    .visual {
-      position: relative;
-      min-height: 680px;
-      display: grid;
-      place-items: center;
-    }
-
-    .halo {
-      position: absolute;
-      width: min(38vw, 440px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      border: 1px solid rgba(191,130,255,.14);
-      box-shadow:
-        0 0 0 42px rgba(157,92,255,.025),
-        0 0 0 90px rgba(157,92,255,.015),
-        0 0 110px var(--glow);
-      animation: pulse 5s ease-in-out infinite;
-    }
-
-    .device {
-      position: relative;
-      width: min(100%, 430px);
-      aspect-ratio: .68;
-      padding: 1px;
-      overflow: hidden;
-      border-radius: 30px;
-      background: linear-gradient(145deg, rgba(226,194,255,.48), rgba(92,38,142,.08) 48%, rgba(197,143,255,.32));
-      box-shadow: 0 40px 90px rgba(0,0,0,.5), 0 0 70px rgba(117,49,190,.18);
-      transform: perspective(900px) rotateY(-7deg) rotateX(3deg);
-    }
-
-    .device-inner {
-      position: relative;
-      height: 100%;
-      padding: 28px;
-      overflow: hidden;
-      border-radius: 29px;
-      background: linear-gradient(160deg, rgba(37,18,56,.98), rgba(10,6,15,.98));
-      display: flex;
-      flex-direction: column;
-    }
-
-    .device-inner::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(110deg, transparent 22%, rgba(255,255,255,.05) 48%, transparent 72%);
-      transform: translateX(-100%);
-      animation: sheen 7s ease-in-out infinite;
-    }
-
-    .terminal-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #897f95;
-      font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--purple);
-      box-shadow: 0 0 14px rgba(157,92,255,.9);
-    }
-
-    .terminal-content {
-      position: relative;
-      margin-top: 24px;
-      min-height: 0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      font: 14px/1.8 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      color: #d9cfe5;
-    }
-
-    .terminal-line {
-      opacity: 0;
-      transform: translateY(8px);
-      animation: reveal 450ms ease forwards;
-    }
-
-    .terminal-line:nth-child(2) { animation-delay: .25s; }
-    .terminal-line:nth-child(3) { animation-delay: .5s; }
-    .terminal-line:nth-child(4) { animation-delay: .75s; }
-    .terminal-line:nth-child(5) { animation-delay: 1s; }
-    .terminal-line:nth-child(6) { animation-delay: 1.25s; }
-
-    .prompt { color: var(--purple-light); }
-    .key { color: #81768c; }
-    .value { color: #f5edff; }
-    .success { color: #bf91ff; }
-
-    .terminal-output {
-      min-height: 0;
-      flex: 1;
-      overflow-y: auto;
-      padding-right: 8px;
-      padding-bottom: 12px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(201,156,255,.35) transparent;
-    }
-
-    .terminal-output > div {
-      min-height: 1.8em;
-      overflow-wrap: anywhere;
-    }
-
-    .terminal-hint {
-      margin-top: 10px;
-      color: #81768c;
-    }
-
-    .terminal-input-row {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 6px;
-      padding: 12px 0 4px;
-      border-top: 1px solid rgba(255,255,255,.07);
-      background: linear-gradient(to bottom, rgba(10,6,15,.94), rgba(10,6,15,.98));
-      cursor: text;
-    }
-
-    .terminal-input {
-      width: 100%;
-      min-width: 0;
-      border: 0;
-      outline: 0;
-      padding: 0;
-      color: #f5edff;
-      background: transparent;
-      font: inherit;
-      caret-color: var(--purple-light);
-    }
-
-    .terminal-input::placeholder {
-      color: #665d70;
-    }
-
-    .terminal-response {
-      color: #d9cfe5;
-      white-space: pre-wrap;
-    }
-
-    .terminal-error {
-      color: #d8a9ff;
-    }
-
-    .mini-card {
-      position: relative;
-      flex: 0 0 auto;
-      margin-top: 10px;
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(255,255,255,.025);
-      backdrop-filter: blur(12px);
-    }
-
-    .mini-label {
-      color: #897f95;
-      font-size: 10px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .mini-title {
-      margin-top: 8px;
-      font-size: 17px;
-      font-weight: 650;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 28px 0 40px;
-      border-top: 1px solid rgba(255,255,255,.07);
-      color: #776d82;
-      font-size: 12px;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-
-    @keyframes drift {
-      to { transform: translate3d(50px, 35px, 0) scale(1.08); }
-    }
-
-    @keyframes pulse {
-      50% { transform: scale(1.035); opacity: .78; }
-    }
-
-    @keyframes sheen {
-      0%, 56% { transform: translateX(-120%); }
-      76%, 100% { transform: translateX(120%); }
-    }
-
-    @keyframes reveal {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 860px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding-top: 90px;
-      }
-
-      .visual {
-        min-height: 470px;
-        margin-bottom: 70px;
-      }
-
-      .device {
-        width: min(88vw, 410px);
-        transform: none;
-      }
-
-      .halo { width: min(76vw, 410px); }
-    }
-
-    @media (max-width: 560px) {
-      .nav { width: min(calc(100% - 28px), var(--max-width)); }
-      main { width: min(calc(100% - 28px), var(--max-width)); }
-      .nav-link { display: none; }
-      h1 { font-size: clamp(58px, 22vw, 92px); }
-      .button { width: 100%; }
-      .visual { min-height: 420px; }
-      .device-inner { padding: 22px; }
-      .terminal-content { font-size: 12px; margin-top: 48px; }
-      .footer { flex-direction: column; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@300;500;700&display=swap"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
       }
     }
-  </style>
+  </script>
 </head>
-<body>
-  <div class="page-shell">
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
+<body class="is-loading">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
 
-    <header class="nav">
-      <a class="brand" href="#" aria-label="beasley.dev home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        beasley.dev
-      </a>
-      <a class="nav-link" href="mailto:ryan@quanttechnology.com">Contact</a>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div>
-          <p class="eyebrow">Exeter, United Kingdom</p>
-          <h1>Ryan <span>Beasley.</span></h1>
-          <p class="intro">
-            Head of Innovation and forex/prop-firm developer at Quant Technology Group.
-            Building trading technology, local development systems and focused digital experiments.
-          </p>
-
-          <div class="actions">
-            <a class="button button-primary" href="mailto:ryan@quanttechnology.com">Get in touch</a>
-            <a class="button button-secondary" href="#status">Current status</a>
-          </div>
-        </div>
-
-        <div class="visual" id="status" aria-label="Development status">
-          <div class="halo"></div>
-          <div class="device">
-            <div class="device-inner">
-              <div class="terminal-top">
-                <span>beasley.dev / local</span>
-                <span class="status-dot" aria-label="Online"></span>
-              </div>
-
-              <div class="terminal-content">
-                <div id="terminal-output" class="terminal-output" aria-live="polite">
-                  <div><span class="prompt">$</span> whoami</div>
-                  <div><span class="value">ryan-beasley</span></div>
-                  <div><span class="key">location:</span> <span class="value">Exeter, UK</span></div>
-                  <div><span class="key">focus:</span> <span class="value">forex / prop-firm CRM / AI / risk</span></div>
-                  <div><span class="key">role:</span> <span class="value">Head of Innovation · Contractor · Part Owner</span></div>
-                  <div><span class="key">company:</span> <span class="value">Quant Technology Group</span></div>
-                  <div><span class="success">● systems operational</span></div>
-                  <div class="terminal-hint">Type <span class="value">help</span> to explore.</div>
-                </div>
-
-                <label class="terminal-input-row" for="terminal-input">
-                  <span class="prompt">$</span>
-                  <input
-                    id="terminal-input"
-                    class="terminal-input"
-                    type="text"
-                    inputmode="text"
-                    autocomplete="off"
-                    autocapitalize="none"
-                    spellcheck="false"
-                    aria-label="Terminal command"
-                    placeholder="enter command"
-                  />
-                </label>
-              </div>
-
-              <div class="mini-card">
-                <div class="mini-label">Development environment</div>
-                <div class="mini-title">Private projects in progress.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <span>© <span id="year"></span> Ryan Beasley</span>
-        <span>Forex · Technology · Development</span>
-      </footer>
-    </main>
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <p class="loader-path">~/beasley.dev <span id="loader-status">booting scene</span></p>
+      <div class="loader-count" id="loader-count">000</div>
+      <div class="loader-bar"><span id="loader-bar"></span></div>
+      <div class="loader-actions" id="loader-actions">
+        <button class="button button-primary" data-enter="sound">Enter with sound</button>
+        <button class="button button-ghost" data-enter="silent">Enter without sound</button>
+      </div>
+      <p class="loader-note">Best with headphones. The soundtrack builds as you scroll.</p>
+    </div>
   </div>
 
+  <header class="hud hud-top">
+    <a class="brand" href="#home" aria-label="beasley.dev home">
+      <span class="brand-mark" aria-hidden="true">B</span>
+      beasley.dev
+    </a>
+    <div class="hud-actions">
+      <button class="hud-button" id="sound-toggle" aria-pressed="false">
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="sound-label">sound off</span>
+      </button>
+      <button class="hud-button play-button" id="play-button" hidden>
+        <span class="shard-icon" aria-hidden="true"></span>
+        play bull run
+      </button>
+      <a class="hud-button" href="#contact">contact</a>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Sections">
+    <a href="#home" data-rail="0"><span>intro</span></a>
+    <a href="#markets" data-rail="1"><span>markets</span></a>
+    <a href="#systems" data-rail="2"><span>systems</span></a>
+    <a href="#terminal" data-rail="3"><span>terminal</span></a>
+    <a href="#contact" data-rail="4"><span>contact</span></a>
+  </nav>
+
+  <div class="hud hud-bottom">
+    <span class="hud-path" id="hud-path">~/beasley.dev/intro</span>
+    <span class="hud-clock" id="hud-clock">Exeter --:--</span>
+    <button class="hud-button shard-counter" id="shard-counter" aria-label="Currencies collected">
+      <span class="shard-icon" aria-hidden="true"></span>
+      <span id="shard-count">0/7</span>
+    </button>
+  </div>
+
+  <div class="geo-tag" id="exeter-tag" aria-hidden="true">You are here: Exeter</div>
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label" id="cursor-label"></span></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="game" id="game" hidden>
+    <div class="game-hud">
+      <div class="game-stat"><span>pips</span><strong id="game-score">0</strong></div>
+      <div class="game-stat"><span>multiplier</span><strong id="game-mult">×1</strong></div>
+      <div class="game-stat"><span>best</span><strong id="game-best">0</strong></div>
+      <button class="hud-button" data-game-exit>exit <kbd>esc</kbd></button>
+    </div>
+    <div class="game-pop" id="game-pop" aria-live="polite"></div>
+    <div class="game-panel" id="game-panel" hidden>
+      <h2 id="game-title">Bull Run</h2>
+      <p id="game-text"></p>
+      <div class="game-actions">
+        <button class="button button-primary" id="game-start">Start run</button>
+        <button class="button button-ghost" data-game-exit>Back to site</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="section section-home" id="home" data-section="0">
+      <div class="home-copy">
+        <p class="kicker">Exeter, United Kingdom</p>
+        <h1><span data-scramble>Ryan</span> <span class="outline" data-scramble>Beasley.</span></h1>
+        <p class="intro">
+          Head of Innovation at Quant Technology Group. I build trading technology
+          for forex brokers and prop firms.
+        </p>
+        <p class="hint"><span class="hint-dot"></span>Scroll to descend. Drag the globe, or click it to fire trades.</p>
+      </div>
+    </section>
+
+    <section class="section section-markets" id="markets" data-section="1">
+      <div class="panel">
+        <h2 data-scramble>Markets move fast. The systems under them can't break.</h2>
+        <p>
+          I develop forex platforms and prop-firm CRM systems: the software that onboards
+          traders, runs their accounts and keeps risk in check. Contractor, part owner and
+          Head of Innovation at Quant Technology Group.
+        </p>
+        <p class="aside">The chart below is live. Move your cursor across it.</p>
+      </div>
+    </section>
+
+    <section class="section section-systems" id="systems" data-section="2">
+      <div class="systems-head">
+        <h2 data-scramble>What I work on</h2>
+      </div>
+      <ul class="shard-labels" id="shard-labels">
+        <li class="shard-label" data-shard="0">
+          <h3>Prop-firm CRM</h3>
+          <p>CRM systems built for forex brokers and prop firms.</p>
+        </li>
+        <li class="shard-label" data-shard="1">
+          <h3>AI products</h3>
+          <p>Applied AI for trading operations and the teams around them.</p>
+        </li>
+        <li class="shard-label" data-shard="2">
+          <h3>Risk &amp; platforms</h3>
+          <p>Risk management, forex platforms, APIs, automation and infrastructure.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section section-terminal" id="terminal" data-section="3">
+      <div class="terminal-copy">
+        <h2 data-scramble>Ask the terminal</h2>
+        <p>Type <kbd>help</kbd> to start. Some commands aren't listed.</p>
+      </div>
+      <div class="device">
+        <div class="device-inner" id="terminal-panel">
+          <div class="terminal-top">
+            <span>beasley.dev / local</span>
+            <span class="status-dot" aria-label="Online"></span>
+          </div>
+          <div class="terminal-content">
+            <div id="terminal-output" class="terminal-output" aria-live="polite">
+              <div><span class="prompt">$</span> whoami</div>
+              <div><span class="value">ryan-beasley</span></div>
+              <div><span class="key">location:</span> <span class="value">Exeter, UK</span></div>
+              <div><span class="key">focus:</span> <span class="value">forex / prop-firm CRM / AI / risk</span></div>
+              <div><span class="key">role:</span> <span class="value">Head of Innovation, contractor, part owner</span></div>
+              <div><span class="key">company:</span> <span class="value">Quant Technology Group</span></div>
+              <div><span class="success">● systems operational</span></div>
+            </div>
+            <label class="terminal-input-row" for="terminal-input">
+              <span class="prompt">$</span>
+              <input
+                id="terminal-input"
+                class="terminal-input"
+                type="text"
+                inputmode="text"
+                autocomplete="off"
+                autocapitalize="none"
+                spellcheck="false"
+                aria-label="Terminal command"
+                placeholder="type help"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-contact" id="contact" data-section="4">
+      <div class="contact-copy">
+        <h2 data-scramble>Building something in trading tech?</h2>
+        <p>Email is the fastest way to reach me.</p>
+        <a class="button button-primary" href="mailto:ryan@quanttechnology.com">Email ryan@quanttechnology.com</a>
+      </div>
+      <footer class="footer">
+        <span>© <span id="year"></span> Ryan Beasley</span>
+        <span>Forex, technology and development from Exeter</span>
+      </footer>
+    </section>
+  </main>
+
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const terminalInput = document.getElementById("terminal-input");
-    const terminalOutput = document.getElementById("terminal-output");
-    const terminalPanel = document.querySelector(".device-inner");
-
-    const commands = {
-      help: [
-        "Available commands:",
-        "about     — who Ryan is",
-        "skills    — development and innovation focus",
-        "location  — where Ryan is based",
-        "company   — current company",
-        "contact   — contact details",
-        "status    — current QTG role and status",
-        "date      — current local date",
-        "clear     — clear the terminal"
-      ].join("\n"),
-      about: "Ryan Beasley is Head of Innovation, a contractor and part owner at Quant Technology Group. He develops forex and prop-firm CRM systems, AI products, risk-management technology and forex platforms.",
-      skills: "Forex and prop-firm CRM development · AI innovation · Risk management · Forex platforms · APIs · Automation · Infrastructure",
-      location: "Exeter, Devon, United Kingdom.",
-      company: "Quant Technology Group. Ryan is a contractor, part owner and Head of Innovation.",
-      contact: "Email: ryan@quanttechnology.com",
-      status: "Contractor and part owner at Quant Technology Group. Currently leading innovation across AI, risk management, forex platforms and prop-firm CRM technology.",
-      date: () => new Intl.DateTimeFormat("en-GB", {
-        dateStyle: "full",
-        timeStyle: "medium",
-        timeZone: "Europe/London"
-      }).format(new Date()),
-      whoami: "ryan-beasley",
-      pwd: "/home/ryan/beasley.dev",
-      ls: "about.txt  projects/  quant/  contact.txt",
-      sudo: "Permission denied. Nice try.",
-      tesla: "Minimal interface. Maximum focus.",
-      purple: "#9d5cff",
-      hello: "Hello. Type help to see the available commands."
-    };
-
-    const aliases = {
-      "?": "help",
-      commands: "help",
-      bio: "about",
-      where: "location",
-      email: "contact",
-      uptime: "status"
-    };
-
-    function appendLine(content, className = "terminal-response") {
-      const line = document.createElement("div");
-      line.className = className;
-      line.textContent = content;
-      terminalOutput.appendChild(line);
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
-    function appendCommand(command) {
-      const line = document.createElement("div");
-      const prompt = document.createElement("span");
-      prompt.className = "prompt";
-      prompt.textContent = "$ ";
-      const value = document.createElement("span");
-      value.className = "value";
-      value.textContent = command;
-      line.append(prompt, value);
-      terminalOutput.appendChild(line);
-    }
-
-    function runCommand(rawCommand) {
-      const trimmed = rawCommand.trim();
-
-      if (!trimmed) return;
-
-      appendCommand(trimmed);
-
-      const requested = trimmed.toLowerCase();
-      const command = aliases[requested] || requested;
-
-      if (command === "clear") {
-        terminalOutput.innerHTML = "";
-        return;
+    // Preloader runs before the 3D module arrives, so it stays inline.
+    (function () {
+      var count = document.getElementById("loader-count");
+      var bar = document.getElementById("loader-bar");
+      var shown = 0;
+      window.__load = { target: 0.6, done: false };
+      function tick() {
+        var goal = window.__load.done ? 1 : window.__load.target;
+        shown += (goal - shown) * (window.__load.done ? 0.2 : 0.04);
+        if (window.__load.done && shown > 0.995) shown = 1;
+        var pct = Math.round(shown * 100);
+        count.textContent = String(pct).padStart(3, "0");
+        bar.style.transform = "scaleX(" + shown + ")";
+        if (shown < 1) requestAnimationFrame(tick);
+        else {
+          document.body.classList.add("is-ready");
+          if (!document.body.classList.contains("no-webgl")) document.getElementById("loader-status").textContent = "scene ready";
+        }
       }
-
-      const response = commands[command];
-
-      if (typeof response === "function") {
-        appendLine(response());
-      } else if (response) {
-        appendLine(response);
-      } else {
-        appendLine(
-          `Command not found: ${trimmed}. Type "help" for available commands.`,
-          "terminal-error"
-        );
-      }
-    }
-
-    terminalInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        runCommand(terminalInput.value);
-        terminalInput.value = "";
-        requestAnimationFrame(() => terminalInput.focus());
-      }
-    });
-
-    terminalPanel.addEventListener("click", (event) => {
-      if (!event.target.closest("a")) terminalInput.focus();
-    });
+      requestAnimationFrame(tick);
+      document.querySelectorAll("[data-enter]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.body.classList.remove("is-loading");
+          document.body.classList.add("has-entered");
+          window.dispatchEvent(new CustomEvent("site:enter", { detail: { sound: btn.dataset.enter === "sound" } }));
+        });
+      });
+      // If the 3D module can't load (blocked CDN, no WebGL), fall back to the plain page.
+      setTimeout(function () {
+        if (!window.__load.started) {
+          document.body.classList.add("no-webgl");
+          document.getElementById("loader-status").textContent = "running without 3D";
+          window.__load.done = true;
+        }
+      }, 9000);
+    })();
   </script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
